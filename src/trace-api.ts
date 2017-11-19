@@ -146,10 +146,12 @@ export class TraceAgent implements TraceAgentInterface {
     const namespace = this.namespace as cls.Namespace;
     // TODO validate options
     // Don't create a root span if we are already in a root span
-    if (cls.getRootContext()) {
+
+    // ignore this validation for the time being to enable async hooks.
+    /*if (cls.getRootContext()) {
       this.logger.warn(this.pluginName + ': Cannot create nested root spans.');
       return fn(null);
-    }
+    }*/
 
     return namespace.runAndReturn(() => {
       // Attempt to read incoming trace context.
